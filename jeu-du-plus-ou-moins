@@ -1,0 +1,37 @@
+#!/bin/bash
+guess=0
+max=1000
+min=1
+iteration=0
+number=$(($RANDOM % max + 1))
+echo "Ceci est le jeu du plus ou moins, cherche le nombre entre 1 et 1000 compris !"
+until [ $guess -eq $number ]
+do	
+	read guess
+	if [[ $guess =~ ^[0-9]+$ ]]; 
+	then
+		if [ $guess -gt $max ]; 
+		then
+			echo "Veuillez entrer un nombre entre $min et $max"
+		elif [ $guess -lt $min ]; 
+		then
+			echo "Veuillez entrer un nombre entre $min et $max"
+
+		elif [ $guess -gt $number ]; 
+		then
+			echo "c'est moins"
+			((iteration++))
+			((max = $guess-1))
+		elif [ $guess -lt $number ]; 
+		then
+			echo "c'est plus"
+			((iteration++))
+			((min = $guess+1))
+		else
+			echo "Félecitation ! Vous avez trouvez en $iteration coups !"
+			exit 1
+		fi
+	else
+		echo "Veullez entrer un nombre"
+	fi
+done

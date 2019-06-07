@@ -1,0 +1,2 @@
+#!/bin/bash
+youtube-dl -x --output "$PWD%(title)s.%(ext)s" $1
